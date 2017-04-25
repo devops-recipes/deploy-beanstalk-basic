@@ -33,5 +33,5 @@ resources:
       - deploy-eb-basic
     integration: dr-github
     pointer:
-      sourceName: devops-recipes/deploy-eb-basic
+      sourceName: devops-recipes/deploy-beanstalk-basic
       branch: master
