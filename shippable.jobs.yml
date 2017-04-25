@@ -13,8 +13,12 @@ jobs:
     steps:
       - IN: deploy-eb-basic-image
       - IN: deploy-eb-basic-config
+        switch: off
       - IN: deploy-eb-env-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
       - TASK:
         - script: aws elasticbeanstalk describe-applications
-        - script: shippable_replace Dockerrun.aws.json
-        - script: cat Dockerrun.aws.json
+        - script: shippable_replace $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
+        - script: cat $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
