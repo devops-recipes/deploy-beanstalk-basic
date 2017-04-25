@@ -1,0 +1,17 @@
+jobs:
+  - name: deploy-eb-basic_runCI
+    type: runCI
+    flags:
+      - deploy-eb-basic
+    steps:
+      - OUT: deploy-eb-basic-image
+
+  - name: deploy-eb-basic-deploy
+    type: runCLI
+    flags:
+      - deploy-eb-basic
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-basic-config
+      - TASK:
+        - script: aws elasticbeanstalk describe-applications

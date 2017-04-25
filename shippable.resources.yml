@@ -1,0 +1,28 @@
+resources:
+  - name: deploy-eb-basic-image
+    type: image
+    flags:
+      - deploy-eb-basic
+    integration: dr-ecr
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nodeapp"
+    seed:
+      versionName: "latest"
+
+  - name: deploy-eb-env-params
+    type: params
+    flags:
+      - deploy-eb-basic
+    version:
+      params:
+        ENVIRONMENT: "dev"
+        AWS_EB_ENVIRONMENT: "Sample-env"
+
+
+  - name: deploy-eb-basic-config
+    type: cliConfig
+    flags:
+      - deploy-eb-basic
+    integration: dr-aws
+    pointer:
+      region: us-east-1
