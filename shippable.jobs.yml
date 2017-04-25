@@ -24,7 +24,7 @@ jobs:
         - script: cat Dockerrun.aws.json
         - script: "echo 'about to ebinit'"
         #- script: init_cmd="echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} -p \"\" --keyname = dr-kp-us-east"
-        - script: init_cmd="eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} -p \"\" --keyname = dr-kp-us-east"
+        - script: init_cmd="eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} -p \"\" --keyname dr-kp-us-east"
         - script: "echo \"the command is: $init_cmd\""
         - script: eval $init_cmd
         #- script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --keyname dr-kp-us-east
