@@ -21,4 +21,4 @@ jobs:
       - TASK:
         - script: shippable_replace $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
         - script: cat $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
-        - script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} 
+        - script: "yes " | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
