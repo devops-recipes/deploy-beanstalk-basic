@@ -6,13 +6,17 @@
   },
   "Ports": [
     {
-      "ContainerPort": "$PORT"
+      "ContainerPort": "$DEPLOYEBENVPARAMS_PORT"
     }
   ],
   "environment": [
     {
       "name": "ENVIRONMENT",
-      "value": "$ENVIRONMENT"
+      "value": "$DEPLOYEBENVPARAMS_ENVIRONMENT"
+    },
+    {
+      "name": "PORT",
+      "value": "$DEPLOYEBENVPARAMS_PORT"
     }
   ]
 }
