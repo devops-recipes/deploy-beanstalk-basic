@@ -1,0 +1,18 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "$DEPLOYEBBASICIMAGE_SOURCENAME:$DEPLOYEBBASICIMAGE_VERSIONNAME",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "$PORT"
+    }
+  ],
+  "environment": [
+    {
+      "name": "ENVIRONMENT",
+      "value": "$ENVIRONMENT"
+    }
+  ]
+}
