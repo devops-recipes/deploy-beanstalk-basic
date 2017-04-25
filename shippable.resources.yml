@@ -18,6 +18,7 @@ resources:
         ENVIRONMENT: "dev"
         PORT: 80
         AWS_EB_ENVIRONMENT: "Sample-env"
+        AWS_EB_APPLICATION: "deploy-eb-basic"
 
   - name: deploy-eb-basic-config
     type: cliConfig
