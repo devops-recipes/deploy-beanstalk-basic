@@ -1,5 +1,5 @@
 jobs:
-  - name: deploy-eb-basic_runCI
+  - name: deploy-beanstalk-basic_runCI
     type: runCI
     flags:
       - deploy-eb-basic
