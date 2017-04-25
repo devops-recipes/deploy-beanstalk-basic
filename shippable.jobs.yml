@@ -19,6 +19,6 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: printenv | grep DEPLOYEBBASICPARAMS
+        - script: printenv | grep DEPLOYEBENVPARAMS
         - script: shippable_replace $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
         - script: cat $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
