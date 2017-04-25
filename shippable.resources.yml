@@ -16,8 +16,8 @@ resources:
     version:
       params:
         ENVIRONMENT: "dev"
+        PORT: 80
         AWS_EB_ENVIRONMENT: "Sample-env"
-
 
   - name: deploy-eb-basic-config
     type: cliConfig
@@ -26,3 +26,12 @@ resources:
     integration: dr-aws
     pointer:
       region: us-east-1
+
+  - name: deploy-eb-basic-repo
+    type: gitRepo
+    flags:
+      - deploy-eb-basic
+    integration: dr-github
+    pointer:
+      sourceName: devops-recipes/deploy-eb-basic
+      branch: master
