@@ -22,6 +22,6 @@ jobs:
         - script: cd $DEPLOYEBBASICREPO_STATE
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
-        - script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --keyname dr-kp-us-east
+        - script: "\"yes \" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}"
         - script: git add -A
         - script: eb deploy --staged ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
