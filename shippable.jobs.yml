@@ -23,4 +23,5 @@ jobs:
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
         - script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
-        - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
+        - script: git add -A
+        - script: eb deploy --staged ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
