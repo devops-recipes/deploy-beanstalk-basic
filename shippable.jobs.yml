@@ -14,6 +14,7 @@ jobs:
       - IN: deploy-eb-basic-image
       - IN: deploy-eb-basic-config
       - IN: deploy-eb-env-params
+      - IN: deploy-eb-basic-repo
       - TASK:
         - script: aws elasticbeanstalk describe-applications
         - script: shippable_replace Dockerrun.aws.json
