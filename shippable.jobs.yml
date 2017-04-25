@@ -22,6 +22,13 @@ jobs:
         - script: cd $DEPLOYEBBASICREPO_STATE
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
-        - script: "\"yes \" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}"
+        - script: "echo 'about to ebinit'"
+        - script: init_cmd="eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --keyname dr-kp-us-east"
+        - script: "echo 'the command is: $init_cmd'"
+        - script: eval $init_cmd
+        #- script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --keyname dr-kp-us-east
+        - script: "echo 'done with ebinit'"
         - script: git add -A
+        - script: "echo 'about to ebdeploy'"
         - script: eb deploy --staged ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
+        - script: "echo 'done with ebdeploy'"
