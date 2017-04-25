@@ -19,7 +19,8 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: shippable_replace $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
-        - script: cat $DEPLOYEBBASICREPO_STATE/Dockerrun.aws.json
+        - script: cd $DEPLOYEBBASICREPO_STATE
+        - script: shippable_replace Dockerrun.aws.json
+        - script: cat Dockerrun.aws.json
         - script: eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
         - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
