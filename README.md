@@ -1,6 +1,6 @@
-# Deploy a Node.js application to Amazon ECS
+# Deploy a Node.js application to Amazon Elastic Beanstalk
 
-[![Run Status](https://api.shippable.com/projects/58f6fcddd1780a07007bba3f/badge?branch=master)](https://app.shippable.com/github/devops-recipes/deploy-eb-basic) [![Coverage Badge](https://api.shippable.com/projects/58f6fcddd1780a07007bba3f/coverageBadge?branch=master)](https://app.shippable.com/github/devops-recipes/deploy-eb-basic)
+[![Run Status](https://api.shippable.com/projects/58ffa88fd799850b00768021/badge?branch=master)](https://app.shippable.com/github/devops-recipes/deploy-beanstalk-basic) [![Coverage Badge](https://api.shippable.com/projects/58ffa88fd799850b00768021/coverageBadge?branch=master)](https://app.shippable.com/github/devops-recipes/deploy-beanstalk-basic)
 
 ![AyeAye](https://github.com/devops-recipes/push-docker-hub/blob/master/public/resources/images/captain.png)
 
