@@ -1,22 +1,22 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "$DEPLOYEBBASICIMAGE_SOURCENAME:$DEPLOYEBBASICIMAGE_VERSIONNAME",
+    "Name": "${DEPLOYEBBASICIMAGE_SOURCENAME}:${DEPLOYEBBASICIMAGE_VERSIONNAME}",
     "Update": "true"
   },
   "Ports": [
     {
-      "ContainerPort": "$DEPLOYEBENVPARAMS_PORT"
+      "ContainerPort": "${DEPLOYEBENVPARAMS_PARAMS_PORT}"
     }
   ],
   "environment": [
     {
       "name": "ENVIRONMENT",
-      "value": "$DEPLOYEBENVPARAMS_ENVIRONMENT"
+      "value": "${DEPLOYEBENVPARAMS_PARAMS_ENVIRONMENT}"
     },
     {
       "name": "PORT",
-      "value": "$DEPLOYEBENVPARAMS_PORT"
+      "value": "${DEPLOYEBENVPARAMS_PARAMS_PORT}"
     }
   ]
 }
