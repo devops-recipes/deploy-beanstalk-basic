@@ -20,8 +20,8 @@ jobs:
         switch: off
       - TASK:
         - script: cd $DEPLOYEBBASICREPO_STATE
-        - script: shippable_replace Dockerrun.aws.json
-        - script: cat Dockerrun.aws.json
+        - script: shippable_replace single_container/Dockerrun.aws.json
+        - script: cat single_container/Dockerrun.aws.json
         - script: BUCKET_NAME="shippable-deploy-eb"
         - script: BUCKET_KEY="$shippable-$JOB_ID-$BUILD_NUMBER"
         - script: zip -r $BUCKET_KEY single_container
