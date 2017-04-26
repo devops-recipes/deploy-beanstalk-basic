@@ -55,3 +55,49 @@ jobs:
         - script: aws s3 cp $BUCKET_KEY s3://$BUCKET_NAME/ && popd
         - script: aws elasticbeanstalk create-application-version --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --version-label $BUCKET_KEY --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$BUCKET_KEY
         - script: aws elasticbeanstalk update-environment --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --environment-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI} --version-label $BUCKET_KEY
+
+
+
+  - name: deploy-beta
+    type: runCLI
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: common-params
+        switch: off
+      - IN: beta-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: export IMAGE="${DEPLOYEBBASICIMAGE_SOURCENAME}:${DEPLOYEBBASICIMAGE_VERSIONNAME}"
+        - script: export APPLICATION=${COMMONPARAMS_PARAMS_AWS_EB_APPLICATION}
+        - script: export ENVIRONMENT=${BETAPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
+        - script: export BUCKET_NAME=${COMMONPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
+        - script: ./deploy.sh   # script that deploys to eb using above exported envs
+        - script: ./validate.sh # script that makes sure deployment is successful
+        - script: echo "versionName=${DEPLOYEBBASICIMAGE_VERSIONNAME}" >> $JOB_STATE/$JOB_NAME.env
+
+  - name: deploy-prod
+    type: runCLI
+    steps:
+      - IN: deploy-eb-basic-image
+        switch: off
+      - IN: deploy-beta
+        switch: off
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: common-params
+        switch: off
+      - IN: beta-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: export IMAGE="${DEPLOYEBBASICIMAGE_SOURCENAME}:${DEPLOYBETA_VERSIONNAME}"
+        - script: export APPLICATION=${COMMONPARAMS_PARAMS_AWS_EB_APPLICATION}
+        - script: export ENVIRONMENT=${BETAPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
+        - script: export BUCKET_NAME=${COMMONPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
+        - script: ./deploy.sh   # script that deploys to eb using above exported envs
+        - script: ./validate.sh # script that makes sure deployment is successful
