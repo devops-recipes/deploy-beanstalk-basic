@@ -24,15 +24,10 @@ jobs:
         - script: cat single_container/Dockerrun.aws.json
         - script: BUCKET_NAME=${DEPLOYEBENVPARAPS_PARAMS_AWS_EB_BUCKET_NAME}
         - script: BUCKET_KEY="${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}-${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}-${BUILD_NUMBER}.tar.gz"
-        - script: pushd single_container && tar -czvf $BUCKET_KEY Dockerrun.aws.json && popd
-        - script: aws s3 mb s3://$BUCKET_NAME || true #if bucket already exist, dont want to fail
-        - script: aws s3 cp single_container/$BUCKET_KEY s3://$BUCKET_NAME/
+        - script: pushd single_container && tar -czvf $BUCKET_KEY Dockerrun.aws.json
+        - script: aws s3 cp $BUCKET_KEY s3://$BUCKET_NAME/ && popd
         - script: aws elasticbeanstalk create-application-version --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --version-label $BUCKET_KEY --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$BUCKET_KEY
         - script: aws elasticbeanstalk update-environment --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --environment-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} --version-label $BUCKET_KEY
-        # - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
-        # - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
-        # - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
-
 
 
   - name: deploy-eb-multi-deploy
