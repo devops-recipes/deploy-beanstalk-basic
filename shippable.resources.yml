@@ -15,7 +15,7 @@ resources:
     pointer:
       sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nginx"
     seed:
-      versionName: "1.12.0"      
+      versionName: "1.12.0"
 
   - name: deploy-eb-env-params
     type: params
@@ -25,7 +25,8 @@ resources:
       params:
         ENVIRONMENT: "dev"
         PORT: 80
-        AWS_EB_ENVIRONMENT: "Sample-env"
+        AWS_EB_ENVIRONMENT_SINGLE: "Sample-env"
+        AWS_EB_ENVIRONMENT_MULTI: "Sample-env-1"
         AWS_EB_APPLICATION: "deploy-eb-basic"
 
   - name: deploy-eb-basic-config
