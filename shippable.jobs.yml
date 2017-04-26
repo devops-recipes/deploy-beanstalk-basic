@@ -19,7 +19,29 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: cd $DEPLOYEBBASICREPO_STATE
+        - script: cd $DEPLOYEBBASICREPO_STATE/single_container
+        - script: shippable_replace Dockerrun.aws.json
+        - script: cat Dockerrun.aws.json
+        - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
+        - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
+
+
+
+  - name: deploy-eb-multi-deploy
+    type: runCLI
+    flags:
+      - deploy-eb-basic
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-nginx-image
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: deploy-eb-env-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: cd $DEPLOYEBBASICREPO_STATE/multi_container
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
         - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
