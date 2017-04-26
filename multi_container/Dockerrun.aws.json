@@ -1,6 +1,5 @@
 {
   "AWSEBDockerrunVersion": 2,
-
   "containerDefinitions": [
     {
       "name": "appication",
@@ -27,7 +26,7 @@
       ],
       "links": [
         "application"
-      ],
+      ]
     }
   ]
 }
