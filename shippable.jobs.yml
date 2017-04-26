@@ -5,7 +5,7 @@ jobs:
       - deploy-eb-basic
     steps:
       - OUT: deploy-eb-basic-image
-  # 
+  #
   # - name: deploy-eb-basic-deploy
   #   type: runCLI
   #   flags:
@@ -90,7 +90,7 @@ jobs:
         switch: off
       - IN: common-params
         switch: off
-      - IN: beta-params
+      - IN: prod-params
         switch: off
       - IN: deploy-eb-basic-repo
         switch: off
