@@ -19,12 +19,18 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: cd $DEPLOYEBBASICREPO_STATE/single_container
+        - script: cd $DEPLOYEBBASICREPO_STATE
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
-        - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --quiet
-        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
-        - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
+        - script: BUCKET_NAME="shippable-deploy-eb"
+        - script: BUCKET_KEY="$shippable-$JOB_ID-$BUILD_NUMBER"
+        - script: zip -r $BUCKET_KEY single_container
+        - script: aws s3 cp $BUCKET_KEY s3://$BUCKET_NAME/
+        - script: aws elasticbeanstalk create-application-version --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --version-label $BUCKET_KEY --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$BUCKET_KEY
+        - script: aws elasticbeanstalk update-environment --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --environment-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} --version-label $BUCKET_KEY
+        # - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
+        # - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
+        # - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
 
 
 
@@ -45,6 +51,6 @@ jobs:
         - script: cd $DEPLOYEBBASICREPO_STATE/multi_container
         - script: shippable_replace Dockerrun.aws.json
         - script: cat Dockerrun.aws.json
-        - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION} --quiet
+        - script: echo \"\" | eb init ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} -r ${DEPLOYEBBASICCONFIG_POINTER_REGION}
         - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI}
         - script: eb deploy ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI}
