@@ -56,14 +56,14 @@ resources:
         AWS_EB_APPLICATION: "deploy-eb-basic"
         AWS_EB_BUCKET_NAME: "shippable-deploy-eb"
 
-  - name: beta-params
+  - name: beta-A-params
     type: params
     version:
       params:
-        AWS_EB_ENVIRONMENT: "beta"
+        AWS_EB_ENVIRONMENT: "beta-A"
 
-  - name: prod-params
+  - name: beta-B-params
     type: params
     version:
       params:
-        AWS_EB_ENVIRONMENT: "prod"
+        AWS_EB_ENVIRONMENT: "beta-B"

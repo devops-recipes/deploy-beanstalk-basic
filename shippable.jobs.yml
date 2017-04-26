@@ -58,7 +58,7 @@ jobs:
 
 
 
-  - name: deploy-beta
+  - name: deploy-beta-a
     type: runCLI
     steps:
       - IN: deploy-eb-basic-image
@@ -66,7 +66,7 @@ jobs:
         switch: off
       - IN: common-params
         switch: off
-      - IN: beta-params
+      - IN: beta-A-params
         switch: off
       - IN: deploy-eb-basic-repo
         switch: off
@@ -79,23 +79,20 @@ jobs:
         - script: ./validate.sh # script that makes sure deployment is successful
         - script: echo "versionName=${DEPLOYEBBASICIMAGE_VERSIONNAME}" >> $JOB_STATE/$JOB_NAME.env
 
-  - name: deploy-prod
+  - name: deploy-beta-b
     type: runCLI
     steps:
       - IN: deploy-eb-basic-image
-        switch: off
-      - IN: deploy-beta
-        switch: off
       - IN: deploy-eb-basic-config
         switch: off
       - IN: common-params
         switch: off
-      - IN: prod-params
+      - IN: beta-B-params
         switch: off
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: export IMAGE="${DEPLOYEBBASICIMAGE_SOURCENAME}:${DEPLOYBETA_VERSIONNAME}"
+        - script: export IMAGE="${DEPLOYEBBASICIMAGE_SOURCENAME}:${DEPLOYEBBASICIMAGE_VERSIONNAME}"
         - script: export APPLICATION=${COMMONPARAMS_PARAMS_AWS_EB_APPLICATION}
         - script: export ENVIRONMENT=${BETAPARAMS_PARAMS_AWS_EB_ENVIRONMENT}
         - script: export BUCKET_NAME=${COMMONPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
