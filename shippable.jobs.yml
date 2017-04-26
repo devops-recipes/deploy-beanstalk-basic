@@ -22,7 +22,7 @@ jobs:
         - script: cd $DEPLOYEBBASICREPO_STATE
         - script: shippable_replace single_container/Dockerrun.aws.json
         - script: cat single_container/Dockerrun.aws.json
-        - script: BUCKET_NAME=${DEPLOYEBENVPARAPS_PARAMS_AWS_EB_BUCKET_NAME}
+        - script: BUCKET_NAME=${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
         - script: BUCKET_KEY="${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}-${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}-${BUILD_NUMBER}.tar.gz"
         - script: pushd single_container && tar -czvf $BUCKET_KEY Dockerrun.aws.json
         - script: aws s3 cp $BUCKET_KEY s3://$BUCKET_NAME/ && popd
