@@ -24,7 +24,9 @@ jobs:
         - script: cat single_container/Dockerrun.aws.json
         - script: BUCKET_NAME="shippable-deploy-eb"
         - script: BUCKET_KEY="$shippable-$JOB_ID-$BUILD_NUMBER"
-        - script: tar -czvf $BUCKET_KEY.zip single_container
+        - script: echo \"BUCKET_NAME is: ${BUCKET_NAME}, and BUCKET_KEY is: ${BUCKET_KEY}.\"
+        - script: tar -czvf $BUCKET_KEY.zip single_container/Dockerrun.aws.json
+        - script: ls -al
         - script: aws s3 cp $BUCKET_KEY s3://$BUCKET_NAME/
         - script: aws elasticbeanstalk create-application-version --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --version-label $BUCKET_KEY --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$BUCKET_KEY
         - script: aws elasticbeanstalk update-environment --application-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION} --environment-name ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} --version-label $BUCKET_KEY
