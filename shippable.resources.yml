@@ -28,6 +28,7 @@ resources:
         AWS_EB_ENVIRONMENT_SINGLE: "Sample-env"
         AWS_EB_ENVIRONMENT_MULTI: "Sample-env-1"
         AWS_EB_APPLICATION: "deploy-eb-basic"
+        AWS_EB_BUCKET_NAME: "shippable-deploy-eb"
 
   - name: deploy-eb-basic-config
     type: cliConfig
