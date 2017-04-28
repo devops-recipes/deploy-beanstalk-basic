@@ -46,3 +46,24 @@ resources:
     pointer:
       sourceName: devops-recipes/deploy-beanstalk-basic
       branch: master
+
+
+  - name: common-params
+    type: params
+    version:
+      params:
+        PORT: 80
+        AWS_EB_APPLICATION: "deploy-eb-basic"
+        AWS_EB_BUCKET_NAME: "shippable-deploy-eb"
+
+  - name: beta-A-params
+    type: params
+    version:
+      params:
+        AWS_EB_ENVIRONMENT: "beta-A"
+
+  - name: beta-B-params
+    type: params
+    version:
+      params:
+        AWS_EB_ENVIRONMENT: "beta-B"

@@ -1,0 +1,9 @@
+branch-defaults:
+  default:
+    environment: ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
+environment-defaults:
+  ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}:
+    branch: null
+    repository: null
+global:
+  application_name: ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}
