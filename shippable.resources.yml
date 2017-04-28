@@ -3,7 +3,6 @@ resources:
     type: image
     flags:
       - deploy-eb-basic
-    integration: dr-ecr
     pointer:
       sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nodeapp"
     seed:
@@ -11,7 +10,6 @@ resources:
 
   - name: deploy-eb-nginx-image
     type: image
-    integration: dr-ecr
     pointer:
       sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nginx"
     seed:
@@ -28,7 +26,6 @@ resources:
         AWS_EB_ENVIRONMENT_SINGLE: "Sample-env"
         AWS_EB_ENVIRONMENT_MULTI: "Sample-env-1"
         AWS_EB_APPLICATION: "deploy-eb-basic"
-        AWS_EB_BUCKET_NAME: "shippable-deploy-eb"
 
   - name: deploy-eb-basic-config
     type: cliConfig
