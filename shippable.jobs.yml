@@ -20,11 +20,13 @@ jobs:
         switch: off
       - TASK:
         - script: cd $DEPLOYEBBASICREPO_STATE
+        - script: eb --version
         - script: shippable_replace single_container/Dockerrun.aws.json single_container/.elasticbeanstalk/config.yml
         - script: cat single_container/Dockerrun.aws.json
-        - script: eb init
-        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}
-        - script: eb deploy
+        - script: cat single_container/.elasticbeanstalk/config.yml
+        - script: eb init -v
+        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} -v
+        - script: eb deploy -v
 
         # - script: BUCKET_NAME=${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
         # - script: BUCKET_KEY="${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}-${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE}-${BUILD_NUMBER}.zip"
@@ -50,11 +52,13 @@ jobs:
         switch: off
       - TASK:
         - script: cd $DEPLOYEBBASICREPO_STATE
+        - script: eb --version
         - script: shippable_replace multi_container/Dockerrun.aws.json multi_container/.elasticbeanstalk/config.yml
         - script: cat multi_container/Dockerrun.aws.json
-        - script: eb init
-        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI}
-        - script: eb deploy
+        - script: cat multi_container/.elasticbeanstalk/config.yml
+        - script: eb init -v
+        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI} -v
+        - script: eb deploy -v
         # - script: BUCKET_NAME=${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_BUCKET_NAME}
         # - script: BUCKET_KEY="${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}-${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI}-${BUILD_NUMBER}.zip"
         # - script: sudo apt-get install zip
