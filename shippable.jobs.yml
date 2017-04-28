@@ -22,29 +22,23 @@ jobs:
         - script: eb --version
         - script: pushd $DEPLOYEBBASICREPO_STATE/single_container && ls -al
         - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
-#        - script: eb init -v
-#        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} -v
         - script: eb deploy -v
-  #
-  # - name: deploy-eb-multi-deploy
-  #   type: runCLI
-  #   flags:
-  #     - deploy-eb-basic
-  #   steps:
-  #     - IN: deploy-eb-basic-image
-  #     - IN: deploy-eb-nginx-image
-  #     - IN: deploy-eb-basic-config
-  #       switch: off
-  #     - IN: deploy-eb-env-params
-  #       switch: off
-  #     - IN: deploy-eb-basic-repo
-  #       switch: off
-  #     - TASK:
-  #       - script: eb --version
-  #       - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container && ls -al
-  #       - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
-  #       - script: cat Dockerrun.aws.json
-  #       - script: cat .elasticbeanstalk/config.yml
-  #       - script: eb init -v
-  #       - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI} -v
-  #       - script: eb deploy -v
+
+  - name: deploy-eb-multi-deploy
+    type: runCLI
+    flags:
+      - deploy-eb-basic
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-nginx-image
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: deploy-eb-env-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: eb --version
+        - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container && ls -al
+        - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
+        - script: eb deploy -v
