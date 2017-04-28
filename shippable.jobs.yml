@@ -20,7 +20,7 @@ jobs:
         switch: off
       - TASK:
         - script: eb --version
-        - script: pushd $DEPLOYEBBASICREPO_STATE/single_container
+        - script: pushd $DEPLOYEBBASICREPO_STATE/single_container && ls -al
         - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
         - script: cat Dockerrun.aws.json
         - script: cat .elasticbeanstalk/config.yml
@@ -52,7 +52,7 @@ jobs:
         switch: off
       - TASK:
         - script: eb --version
-        - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container
+        - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container && ls -al
         - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
         - script: cat Dockerrun.aws.json
         - script: cat .elasticbeanstalk/config.yml
