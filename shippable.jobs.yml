@@ -19,11 +19,11 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: cd $DEPLOYEBBASICREPO_STATE
         - script: eb --version
-        - script: shippable_replace single_container/Dockerrun.aws.json single_container/.elasticbeanstalk/config.yml
-        - script: cat single_container/Dockerrun.aws.json
-        - script: cat single_container/.elasticbeanstalk/config.yml
+        - script: pushd $DEPLOYEBBASICREPO_STATE/single_container
+        - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
+        - script: cat Dockerrun.aws.json
+        - script: cat .elasticbeanstalk/config.yml
         - script: eb init -v
         - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} -v
         - script: eb deploy -v
@@ -51,11 +51,11 @@ jobs:
       - IN: deploy-eb-basic-repo
         switch: off
       - TASK:
-        - script: cd $DEPLOYEBBASICREPO_STATE
         - script: eb --version
-        - script: shippable_replace multi_container/Dockerrun.aws.json multi_container/.elasticbeanstalk/config.yml
-        - script: cat multi_container/Dockerrun.aws.json
-        - script: cat multi_container/.elasticbeanstalk/config.yml
+        - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container
+        - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
+        - script: cat Dockerrun.aws.json
+        - script: cat .elasticbeanstalk/config.yml
         - script: eb init -v
         - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_MULTI} -v
         - script: eb deploy -v
