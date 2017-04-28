@@ -22,11 +22,9 @@ jobs:
         - script: eb --version
         - script: pushd $DEPLOYEBBASICREPO_STATE/single_container && ls -al
         - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
-        - script: echo "========================== dockerrun" && cat Dockerrun.aws.json
-        - script: echo "========================== config.yml" && cat .elasticbeanstalk/config.yml
-        # - script: eb init -v
-        # - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} -v
-        # - script: eb deploy -v
+#        - script: eb init -v
+#        - script: eb use ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_ENVIRONMENT_SINGLE} -v
+        - script: eb deploy -v
   #
   # - name: deploy-eb-multi-deploy
   #   type: runCLI
