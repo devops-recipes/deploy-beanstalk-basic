@@ -7,3 +7,12 @@ environment-defaults:
     repository: null
 global:
   application_name: ${DEPLOYEBENVPARAMS_PARAMS_AWS_EB_APPLICATION}
+  default_ec2_keyname: null
+  default_platform: null
+  default_region: ${DEPLOYEBBASICCONFIG_POINTER_REGION}
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: null
+  workspace_type: Application
