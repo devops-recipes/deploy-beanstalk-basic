@@ -6,7 +6,6 @@ jobs:
     steps:
       - OUT: deploy-eb-basic-image
 
-<<<<<<< HEAD
   - name: deploy-eb-basic-deploy
     type: runSh
     flags:
