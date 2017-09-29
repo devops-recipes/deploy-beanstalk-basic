@@ -7,7 +7,7 @@
       "environment": [
         {
           "name": "ENVIRONMENT",
-          "value": "${DEPLOYEBENVPARAMS_PARAMS_ENVIRONMENT}"
+          "value": "${ENVIRONMENT}"
         }
       ],
       "essential": true,
@@ -22,6 +22,12 @@
         {
           "hostPort": 80,
           "containerPort": 80
+        }
+      ],
+      "environment": [
+        {
+          "name": "ENVIRONMENT",
+          "value": "${ENVIRONMENT}"
         }
       ],
       "links": [
