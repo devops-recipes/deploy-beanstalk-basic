@@ -45,3 +45,96 @@ integrations:
   hub:
     - integrationName: dr-ecr
       type: ecr
+
+
+resources:
+  - name: deploy-eb-basic-image
+    type: image
+    flags:
+      - deploy-eb-basic
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nodeapp"
+    seed:
+      versionName: "latest"
+
+  - name: deploy-eb-nginx-image
+    type: image
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nginx"
+    seed:
+      versionName: "1.12.0"
+
+  - name: deploy-eb-env-params
+    type: params
+    flags:
+      - deploy-eb-basic
+    version:
+      params:
+        ENVIRONMENT: "dev"
+        PORT: 80
+        AWS_EB_ENVIRONMENT_SINGLE: "Sample-env"
+        AWS_EB_ENVIRONMENT_MULTI: "Sample-env-1"
+        AWS_EB_APPLICATION: "deploy-eb-basic"
+
+  - name: deploy-eb-basic-config
+    type: cliConfig
+    flags:
+      - deploy-eb-basic
+    integration: dr-aws
+    pointer:
+      region: us-east-1
+
+  - name: deploy-eb-basic-repo
+    type: gitRepo
+    flags:
+      - deploy-eb-basic
+    integration: dr-github
+    pointer:
+      sourceName: devops-recipes/deploy-beanstalk-basic
+      branch: master
+
+
+jobs:
+  - name: deploy-beanstalk-basic_runCI
+    type: runCI
+    flags:
+      - deploy-eb-basic
+    steps:
+      - OUT: deploy-eb-basic-image
+
+  - name: deploy-eb-basic-deploy
+    type: runSh
+    flags:
+      - deploy-eb-basic
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: deploy-eb-env-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: eb --version
+        - script: pushd $DEPLOYEBBASICREPO_STATE/single_container && ls -al
+        - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
+        - script: eb deploy -v
+
+  - name: deploy-eb-multi-deploy
+    type: runSh
+    flags:
+      - deploy-eb-basic
+    steps:
+      - IN: deploy-eb-basic-image
+      - IN: deploy-eb-nginx-image
+      - IN: deploy-eb-basic-config
+        switch: off
+      - IN: deploy-eb-env-params
+        switch: off
+      - IN: deploy-eb-basic-repo
+        switch: off
+      - TASK:
+        - script: eb --version
+        - script: pushd $DEPLOYEBBASICREPO_STATE/multi_container && ls -al
+        - script: shippable_replace Dockerrun.aws.json .elasticbeanstalk/config.yml
+        - script: eb deploy -v
